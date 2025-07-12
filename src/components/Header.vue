@@ -26,7 +26,7 @@ export default {
     return {
       links: [
         { path: '/', name: 'Home' },
-        { path: '/about', name: 'Projects' },
+        { path: '/projects', name: 'Projects' },
         { path: '/contact', name: 'Contact' },
       ],
       isAnimating: false
@@ -78,7 +78,6 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: 'Geometria', sans-serif;
 }
 
 .logo {
@@ -100,6 +99,7 @@ export default {
   font-size: 1.1rem;
   position: relative;
   padding: 0.5rem 0;
+  font-weight: 400;
 }
 
 .nav-link::after {

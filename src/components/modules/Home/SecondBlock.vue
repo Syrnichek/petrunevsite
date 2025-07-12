@@ -27,7 +27,7 @@ export default {
     return {
       buttons: [
         {
-          route: '/work',
+          route: '/Pik',
           type: 'outline',
           image: pikLogo,
           imageStyle: {
@@ -37,7 +37,7 @@ export default {
           }
         },
         {
-          route: '/about',
+          route: '/S7',
           type: 'outline',
           image: s7Logo,
           imageStyle: {
@@ -47,7 +47,7 @@ export default {
           }
         },
         {
-          route: '/contact',
+          route: '/Lenta',
           type: 'outline',
           image: lentaLogo,
           imageStyle: {
