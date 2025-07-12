@@ -4,25 +4,29 @@
 
     <div class="content">
       <!-- Овал -->
-      <div class="oval-tag" :class="{'show': showOval}">
+      <div class="oval-tag" :style="ovalStyle">
         <span>Available for inquiries // Q3</span>
       </div>
 
-      <!-- Имя -->
-      <div class="name-tag" :class="{'show': showName}">
+      <!-- Имя с анимацией букв -->
+      <div class="name-tag">
         <span class="name-wrapper">
-          <span v-for="(char, index) in nameChars"
-                :key="index"
-                class="name-char"
-                :class="{'show': showLetters}"
-                :style="{transitionDelay: `${index * 0.1}s`}">
+          <span
+              v-for="(char, index) in nameChars"
+              :key="index"
+              class="name-char"
+              :style="{
+              opacity: showLetters ? 1 : 0,
+              transform: showLetters ? 'translateY(0)' : 'translateY(10px)',
+              transition: `all 0.5s ease-out ${index * 0.05}s`
+            }">
             {{ char === ' ' ? '&nbsp;' : char }}
           </span>
         </span>
       </div>
 
       <!-- Описание -->
-      <div class="description" :class="{'show': showDesc}">
+      <div class="description" :style="descStyle">
         Art-director, helping business unlock their full potential through distinctive, high-end branding
       </div>
     </div>
@@ -35,37 +39,44 @@ export default {
   data() {
     return {
       name: 'Petrunev Egor',
-      showOval: false,
-      showName: false,
-      showDesc: false,
-      showLetters: false
-    }
-  },
-  computed: {
-    nameChars() {
-      return this.name.split('')
+      nameChars: [],
+      showLetters: false,
+      ovalStyle: {
+        opacity: 0,
+        transform: 'translateY(10px)'
+      },
+      descStyle: {
+        opacity: 0,
+        transform: 'translateY(10px)'
+      }
     }
   },
   mounted() {
+    // Разбиваем имя на буквы
+    this.nameChars = this.name.split('')
+
     // Анимация овала
     setTimeout(() => {
-      this.showOval = true
-    }, 300)
+      this.ovalStyle = {
+        opacity: 1,
+        transform: 'translateY(0)',
+        transition: 'all 0.4s ease-out'
+      }
+    }, 200)
 
-    // Анимация имени (блок)
+    // Анимация букв имени
     setTimeout(() => {
-      this.showName = true
-
-      // Анимация букв начинается после появления блока
-      setTimeout(() => {
-        this.showLetters = true
-      }, 800) // Большая задержка для медленного появления
-    }, 600)
+      this.showLetters = true
+    }, 300)
 
     // Анимация описания
     setTimeout(() => {
-      this.showDesc = true
-    }, 900)
+      this.descStyle = {
+        opacity: 1,
+        transform: 'translateY(0)',
+        transition: 'all 0.4s ease-out'
+      }
+    }, 400)
   }
 }
 </script>
@@ -86,17 +97,9 @@ export default {
   padding: 2rem;
 }
 
-/* Общие стили */
-.oval-tag,
-.name-tag,
-.description {
-  position: absolute;
-  opacity: 0;
-  transition: all 0.8s ease-out;
-}
-
 /* Овал */
 .oval-tag {
+  position: absolute;
   bottom: 180px;
   left: 2rem;
   background: #2a2a2a;
@@ -104,51 +107,36 @@ export default {
   padding: 6px 18px;
   border-radius: 50px;
   font-size: 12px;
-  transform: translateY(20px);
 }
 
 /* Имя */
 .name-tag {
+  position: absolute;
   bottom: 6rem;
   left: 2rem;
   font-size: 64px;
   color: white;
-  font-weight: 500;
-  transform: translateY(20px);
+  font-weight: 400;
 }
 
 .name-wrapper {
   display: inline-block;
 }
 
+/* Буквы имени */
 .name-char {
   display: inline-block;
-  opacity: 0;
-  transform: translateY(15px); /* Начальное положение - снизу */
-  transition: all 0.3s ease-out; /* Медленная анимация */
+  will-change: transform, opacity;
 }
 
 /* Описание */
 .description {
-  bottom: 6rem;
-  right: 6rem;
-  width: 300px;
+  position: absolute;
+  bottom: 7rem;
+  right: 2rem;
+  width: 350px;
   font-size: 14px;
   color: #b3b3b3;
   text-align: right;
-  transform: translateY(20px);
-}
-
-/* Состояния анимации */
-.oval-tag.show,
-.name-tag.show,
-.description.show {
-  opacity: 1;
-  transform: translate(0);
-}
-
-.name-char.show {
-  opacity: 1;
-  transform: translateY(0); /* Конечное положение */
 }
 </style>
