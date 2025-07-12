@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="logo" :style="logoStyle">
-      Petrunev
+      PETRUNEV
     </div>
 
     <nav class="nav">
@@ -83,7 +83,7 @@ export default {
 
 .logo {
   color: white;
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 400;
   padding-left: 2rem;
 }
